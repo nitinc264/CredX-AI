@@ -14,7 +14,7 @@ The problem with most job sites is that they're not very smart. They see "JavaSc
 - It Understands What You Mean – Knows that a "Lead Product Designer" is relevant to "UI/UX Design" skills, going beyond simple keyword matching.
 - It Tells You Why – Every recommendation comes with a short "Match Story", explaining why the role fits you.
 
-<img src="YOUR_IMAGE_URL_GOES_HERE" width="100%">
+<img src="(https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif)" width="100%">
 
 ## 🛠️ How We Built It (Hackathon Story)
 
