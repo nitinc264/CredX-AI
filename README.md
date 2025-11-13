@@ -1,4 +1,3 @@
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
 # CredX AI - Your Personal Career Trajectory Engine
 
 Ever felt like you're shouting into the void when applying for jobs? You spend hours polishing your resume and sending it out, only to get back a flood of irrelevant listings. We've been there, and we thought: "There has to be a better way."
