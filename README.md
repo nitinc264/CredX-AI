@@ -111,7 +111,7 @@ credx-ai/
 - Personalized insights.
 - Faster, easier, and more human job search.
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="1g00%">
 
 ## 💡 Future Improvements
 
@@ -126,7 +126,12 @@ credx-ai/
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
 
-## Demo Link 	
+## 🚀 Live Demo
+[View the live site here!](https://credx-ai.onrender.com/)
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
+
+## Demo Link 	
 [View Demo](https://drive.google.com/file/d/1PwaxuSsKrxdTDLMEYcITFjXXBiCwXuCN/view?usp=sharing)
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
