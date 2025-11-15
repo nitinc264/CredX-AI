@@ -4,6 +4,9 @@ First off, thank you for considering contributing to CredX AI! We're thrilled yo
 
 Whether you're fixing a bug, improving documentation, or building a new feature, your contribution is valuable.
 
+## 🚀 Live Demo
+**[View the live site here!](https://credx-ai.onrender.com/)**
+
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
 
 ## 🤝 Code of Conduct
