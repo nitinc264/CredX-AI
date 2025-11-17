@@ -53,6 +53,7 @@ class Recommender:
             'titles': {t.lower().strip() for t in candidate_prefs.get('titles', [])},
             'locations': {l.lower().strip() for l in candidate_prefs.get('locations', [])},
             'industries': {i.lower().strip() for i in candidate_prefs.get('industries', [])},
+            'employment_types': {e.lower().strip() for e in candidate_prefs.get('employment_types', [])},
         }
 
         results = []
@@ -65,10 +66,15 @@ class Recommender:
                 'title': self.semantic_matcher.get_similarity(job['title'], candidate_prefs.get('titles', [])) * 100,
                 'location': self._score_list_overlap(norm_prefs['locations'], [job['location'].lower().strip()]),
                 'industry': self._score_list_overlap(norm_prefs['industries'], [job['industry'].lower().strip()]),
-                'salary': self._score_salary(candidate_prefs.get('min_salary'), job['salary_range'])
+                'salary': self._score_salary(candidate_prefs.get('min_salary'), job['salary_range']),
+                'employment_type': self._score_list_overlap(norm_prefs['employment_types'], [job['employment_type'].lower().strip()])
             }
 
             if raw_scores['location'] == 0 and norm_prefs['locations']:
+                continue
+
+            # Filter by employment type if specified
+            if norm_prefs['employment_types'] and raw_scores['employment_type'] == 0:
                 continue
 
             total_weight = sum(dynamic_weights.values())
@@ -76,7 +82,14 @@ class Recommender:
             
             final_score = 0
             score_breakdown = {}
-            for key, display_name in {'skills': 'Skills', 'title': 'Title', 'location': 'Location', 'industry': 'Industry', 'salary': 'Salary'}.items():
+            for key, display_name in {
+                'skills': 'Skills', 
+                'title': 'Title', 
+                'location': 'Location', 
+                'industry': 'Industry', 
+                'salary': 'Salary',
+                'employment_type': 'Employment Type'
+            }.items():
                 contribution = (raw_scores[key] * dynamic_weights.get(key, 0)) / total_weight
                 final_score += contribution
                 score_breakdown[display_name] = round(contribution)
@@ -91,6 +104,7 @@ class Recommender:
                 'Title': self._get_match_details(candidate_prefs.get('titles', []), [job['title']], is_semantic=True, threshold=0.6),
                 'Location': self._get_match_details(candidate_prefs.get('locations', []), [job['location']]),
                 'Industry': self._get_match_details(candidate_prefs.get('industries', []), [job['industry']]),
+                'Employment Type': self._get_match_details(candidate_prefs.get('employment_types', []), [job['employment_type']]),
                 'Salary': f"₹{locale.format_string('%d', job['salary_range'][0], grouping=True)} - ₹{locale.format_string('%d', job['salary_range'][1], grouping=True)}"
             }
 
@@ -100,6 +114,7 @@ class Recommender:
                     "job_title": job['title'],
                     "company": job['company'],
                     "location": job['location'],
+                    "employment_type": job['employment_type'],
                     "match_score": rounded_final_score,
                     "breakdown": score_breakdown,
                     "validation_details": validation_details,
