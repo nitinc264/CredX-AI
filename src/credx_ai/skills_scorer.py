@@ -1,4 +1,5 @@
-from semantic_matcher import SemanticMatcher
+# NEW
+from .semantic_matcher import SemanticMatcher
 
 class SkillsScorer:
     def __init__(self):

@@ -1,10 +1,12 @@
 # file: matching_engine.py
 
 import pandas as pd
-from data_handler import DataHandler
-from semantic_matcher import SemanticMatcher
-from skills_scorer import SkillsScorer
-from story_generator import StoryGenerator
+# NEW
+from .data_handler import DataHandler
+from .semantic_matcher import SemanticMatcher
+from .skills_scorer import SkillsScorer
+from .story_generator import StoryGenerator
+
 import locale
 
 try:

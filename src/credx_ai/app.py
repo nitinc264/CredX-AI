@@ -2,8 +2,8 @@
 
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from matching_engine import Recommender
-from resume_parser import ResumeParser
+from .matching_engine import Recommender
+from .resume_parser import ResumeParser
 import os
 try:
     import google.generativeai as genai

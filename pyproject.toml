@@ -55,6 +55,10 @@ Demo = "https://credx-ai.onrender.com/"
 [tool.setuptools]
 py-modules = []
 
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["credx_ai", "credx_ai.*"]
+
 [tool.black]
 line-length = 100
 target-version = ['py38', 'py39', 'py310', 'py311']
