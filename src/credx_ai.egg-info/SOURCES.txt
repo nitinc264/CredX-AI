@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/credx_ai/__init__.py
+src/credx_ai/app.py
+src/credx_ai/data_handler.py
+src/credx_ai/matching_engine.py
+src/credx_ai/resume_parser.py
+src/credx_ai/semantic_matcher.py
+src/credx_ai/skills_scorer.py
+src/credx_ai/story_generator.py
+src/credx_ai.egg-info/PKG-INFO
+src/credx_ai.egg-info/SOURCES.txt
+src/credx_ai.egg-info/dependency_links.txt
+src/credx_ai.egg-info/requires.txt
+src/credx_ai.egg-info/top_level.txt
