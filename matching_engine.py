@@ -40,6 +40,8 @@ EXPERIENCE_LEVELS = {
 
 
 def compute_experience_score(required: str, candidate: str) -> float:
+    if not required or not candidate:
+        return 0.0
     r = required.lower()
     c = candidate.lower()
 
@@ -66,6 +68,10 @@ def compute_weighted_score(semantic: float, skill: float, exp: float, weights: D
 def rank_candidates(job_description: str, required_skills: List[str], required_experience: str,
                     candidates: List[Dict[str, Any]], weights: Dict[str, float]):
     results = []
+
+    # Early return for empty candidate list
+    if not candidates:
+        return []
 
     for cand in candidates:
         semantic = compute_semantic_score(job_description, cand.get("summary", ""))
