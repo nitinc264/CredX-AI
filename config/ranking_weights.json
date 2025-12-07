@@ -1,0 +1,8 @@
+{
+  "weights": {
+    "semantic": 0.4,
+    "preference": 0.0,
+    "skill_relevance": 0.4,
+    "experience": 0.2
+  }
+}
