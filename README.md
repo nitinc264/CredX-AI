@@ -180,11 +180,11 @@ credx-ai/
 ## 🙏 Mentors
 ### Our Guiding Stars 🌟
 
-- **Mehvish (@Mehvish1234)**  
-  *Collaborator | Technical Mentor*  
+- **Mehvish @Mehvish1234**  
+  *Collaborator | Project Mentor*  
   🔗 https://github.com/Mehvish1234
 
-- **Parag Ekbote (@ParagEkbote)**  
+- **Parag Ekbote @ParagEkbote**  
   *Collaborator | Project Mentor*  
   🔗 https://github.com/ParagEkbote
 
