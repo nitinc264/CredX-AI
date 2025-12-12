@@ -1,0 +1,23 @@
+[
+  {
+    "id": "cand_1",
+    "summary": "Senior ML engineer with 6 years experience in PyTorch, NLP and production ML systems.",
+    "skills": ["python", "pytorch", "nlp", "mlops"],
+    "experience": "senior",
+    "location": "remote"
+  },
+  {
+    "id": "cand_2",
+    "summary": "Mid-level backend engineer experienced in Python, Django and REST APIs.",
+    "skills": ["python", "django", "rest"],
+    "experience": "mid",
+    "location": "on-site"
+  },
+  {
+    "id": "cand_3",
+    "summary": "Junior data scientist with hands-on pandas, scikit-learn and SQL.",
+    "skills": ["python", "pandas", "scikit-learn", "sql"],
+    "experience": "junior",
+    "location": "remote"
+  }
+]
