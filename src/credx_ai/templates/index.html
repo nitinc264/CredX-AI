@@ -146,6 +146,17 @@
     </main>
   </div>
 
+  <div id="cookie-consent-popup" class="cookie-popup hidden" role="dialog" aria-labelledby="cookie-heading">
+    <div class="cookie-content">
+      <h4 id="cookie-heading">We value your privacy</h4>
+      <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+    </div>
+    <div class="cookie-actions">
+      <button id="cookie-reject-btn" class="secondary-btn">Reject</button>
+      <button id="cookie-accept-btn" class="primary-btn">Accept</button>
+    </div>
+  </div>
+
   <!-- Use url_for for robust linking to static files -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script>

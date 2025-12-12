@@ -1,23 +1,40 @@
-# **📑 Table of Contents**
-
-1. [CredX AI - Your Personal Career Trajectory Engine](#credx-ai---your-personal-career-trajectory-engine)
-2. [🚀 The Big Idea](#-the-big-idea)
-3. [🛠️ How We Built It (Hackathon Story)](#️-how-we-built-it-hackathon-story)
-   * [Tech Stack Overview](#tech-stack-overview)
-4. [⚙️ Run It Yourself](#️-run-it-yourself)
-   * [Requirements](#requirements)
-   * [Project Structure](#project-structure)
-   * [Installation](#installation)
-5. [📖 How to Use](#-how-to-use)
-6. [🏆 Why CredX AI?](#-why-credx-ai)
-7. [💡 Future Improvements](#-future-improvements)
-8. [🖥️ Output](#output)
-9. [🚀 Live Demo](#-live-demo)
-10. [🎥 Demo Link](#demo-link)
-11. [🤝 Contributing](#-contributing)
-12. [📜 License](#-license)
-
-
+Metadata-Version: 2.4
+Name: credx-ai
+Version: 1.0.0
+Summary: Your Personal Career Trajectory Engine - AI-powered job matching platform
+Author-email: Nitin RC <nitinrc264@example.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/nitinc264/CredX-AI
+Project-URL: Repository, https://github.com/nitinc264/CredX-AI
+Project-URL: Issues, https://github.com/nitinc264/CredX-AI/issues
+Project-URL: Demo, https://credx-ai.onrender.com/
+Keywords: ai,job-matching,career,resume-parser,machine-learning
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: Flask>=2.3.0
+Requires-Dist: Flask-Cors>=4.0.0
+Requires-Dist: gunicorn
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: sentence-transformers>=2.2.0
+Requires-Dist: torch>=2.0.0
+Requires-Dist: torchvision>=0.15.0
+Requires-Dist: torchaudio>=2.0.0
+Requires-Dist: PyMuPDF>=1.23.0
+Requires-Dist: google-generativeai>=0.3.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
 
 # CredX AI - Your Personal Career Trajectory Engine
 
@@ -174,19 +191,6 @@ credx-ai/
 
 ## Demo Link 	
 [View Demo](https://drive.google.com/file/d/1PwaxuSsKrxdTDLMEYcITFjXXBiCwXuCN/view?usp=sharing)
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
-
-## 🙏 Mentors
-### Our Guiding Stars 🌟
-
-- **Mehvish @Mehvish1234**  
-  *Collaborator | Project Mentor*  
-  🔗 https://github.com/Mehvish1234
-
-- **Parag Ekbote @ParagEkbote**  
-  *Collaborator | Project Mentor*  
-  🔗 https://github.com/ParagEkbote
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
 
