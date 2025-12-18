@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
-  <!-- Use url_for for robust linking to static files -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -23,7 +22,6 @@
       </div>
 
       <form id="preferences-form" aria-label="Preferences form">
-        <!-- Resume Upload Section -->
         <section class="form-block">
             <h4>Start with your Resume</h4>
             <div class="resume-upload">
@@ -106,6 +104,28 @@
       </form>
 
       <footer class="sidebar-foot">
+        <div style="margin-bottom: 16px;">
+          <button type="button" id="theme-toggle" class="theme-toggle-btn">
+            <span style="display: flex; align-items: center; gap: 8px;">
+              <i data-feather="sun" id="theme-icon"></i>
+              <span id="theme-name">Light</span>
+            </span>
+            <i data-feather="chevron-down"></i>
+          </button>
+          
+          <div id="theme-menu" class="theme-menu">
+            <button type="button" class="theme-option" data-theme="light">
+              <i data-feather="sun"></i> Light
+            </button>
+            <button type="button" class="theme-option" data-theme="dark">
+              <i data-feather="moon"></i> Dark
+            </button>
+            <button type="button" class="theme-option" data-theme="blue">
+              <i data-feather="droplet"></i> Ocean Blue
+            </button>
+          </div>
+        </div>
+
         <h4><i data-feather="settings"></i> UI Settings</h4>
         <div class="settings-grid">
             <label>Accent Color
@@ -137,7 +157,8 @@
     </main>
   </div>
 
-  <!-- Use url_for for robust linking to static files -->
+
+  
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script>
     // Initialize Feather Icons after the page loads
@@ -145,3 +166,5 @@
   </script>
 </body>
 </html>
+
+

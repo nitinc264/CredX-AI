@@ -331,3 +331,60 @@ document.addEventListener('DOMContentLoaded', () => {
       return tableHTML;
   }
 });
+
+(function initTheme() {
+  const THEMES = {
+    light: { name: 'Light', icon: 'sun' },
+    dark: { name: 'Dark', icon: 'moon' },
+    blue: { name: 'Ocean Blue', icon: 'droplet' }
+  };
+
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeMenu = document.getElementById('theme-menu');
+  const themeName = document.getElementById('theme-name');
+  const themeIcon = document.getElementById('theme-icon');
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('credx-theme') || 'light';
+  applyTheme(savedTheme, false);
+
+  // Toggle menu
+  themeToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    themeMenu?.classList.toggle('active');
+  });
+
+  // Close menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.theme-toggle-btn') && !e.target.closest('.theme-menu')) {
+      themeMenu?.classList.remove('active');
+    }
+  });
+
+  // Handle theme selection
+  document.querySelectorAll('.theme-option').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const theme = btn.dataset.theme;
+      applyTheme(theme, true);
+      themeMenu?.classList.remove('active');
+    });
+  });
+
+  function applyTheme(theme, save = true) {
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    if (themeName) themeName.textContent = THEMES[theme].name;
+    if (themeIcon) themeIcon.setAttribute('data-feather', THEMES[theme].icon);
+    
+    // Update active state
+    document.querySelectorAll('.theme-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+    
+    if (save) localStorage.setItem('credx-theme', theme);
+    
+    // Re-render feather icons
+    if (window.feather) window.feather.replace();
+  }
+})();
