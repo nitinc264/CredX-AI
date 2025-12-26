@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('preferences-form');
   const resultsArea = document.getElementById('results-area');
   const submitBtn = document.getElementById('submit-btn');
-  const clearBtn = document.getElementById('clear-btn');
-  const formStatus = document.getElementById('form-status');
   const normalizeToggle = document.getElementById('normalize-toggle');
   const accentSelect = document.getElementById('accent-select');
   const sidebarWidthSlider = document.getElementById('sidebar-width');
@@ -18,26 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getSliders = () => Array.from(document.querySelectorAll('input[type="range"][data-weight-key]'));
   const getEnabledSliders = () => getSliders().filter(s => !s.disabled);
-  const escapeHtml = (s) => String(s || '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  const escapeHtml = (s) => String(s || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 
   const safeArrayFill = (inputId, arr, maxItems = 50) => {
-    const input = document.getElementById(inputId);
-    if (!input) return false;
-    if (!Array.isArray(arr)) {
-      input.value = '';
-      return false;
-    }
-    const filtered = arr
-      .map(x => (typeof x === 'string' ? x.trim() : ''))
-      .filter(x => x.length > 0 && x.length <= 100)
-      .slice(0, maxItems);
-
-    if (filtered.length === 0) {
-      input.value = '';
-      return false;
-    }
-    input.value = filtered.join(', ');
-    return true;
+      const input = document.getElementById(inputId);
+      if (!input) return false;
+      if (!Array.isArray(arr)) {
+          input.value = '';
+          return false;
+      }
+      const filtered = arr
+          .map(x => (typeof x === 'string' ? x.trim() : ''))
+          .filter(x => x.length > 0 && x.length <= 100)
+          .slice(0, maxItems);
+      
+      if (filtered.length === 0) {
+          input.value = '';
+          return false;
+      }
+      input.value = filtered.join(', ');
+      return true;
   };
 
   const syncDisplays = () => {
@@ -77,86 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const scaleFactor = 100 / totalRaw;
       enabled.forEach(s => s.value = Number(s.value) * scaleFactor);
     }
-
+    
     let currentSum = enabled.reduce((sum, s) => sum + Math.round(Number(s.value)), 0);
     if (currentSum !== 100 && enabled.length > 0) {
-      const diff = 100 - currentSum;
-      const lastSlider = enabled[enabled.length - 1];
-      lastSlider.value = Number(lastSlider.value) + diff;
+        const diff = 100 - currentSum;
+        const lastSlider = enabled[enabled.length - 1];
+        lastSlider.value = Number(lastSlider.value) + diff;
     }
 
     syncDisplays();
   };
-
+  
   const replaceIcons = () => {
-    if (window.feather) {
-      window.feather.replace();
-    }
-  };
-  const handleClearForm = () => {
-    const confirmClear = confirm('Are you sure you want to clear all form fields?');
-    if (!confirmClear) return;
-    const originalHTML = clearBtn.innerHTML;
-    clearBtn.disabled = true;
-    clearBtn.innerHTML = '<i data-feather="loader" class="spin"></i> Clearing...';
-    replaceIcons();
-    setTimeout(() => {
-
-      document.getElementById('skills').value = '';
-      document.getElementById('titles').value = '';
-      document.getElementById('locations').value = '';
-      document.getElementById('industries').value = '';
-
-      document.getElementById('min_salary').value = '170000';
-
-      resumeUploadInput.value = '';
-      resumeStatus.textContent = '';
-
-      document.getElementById('w_skills').value = 30;
-      document.getElementById('w_title').value = 20;
-      document.getElementById('w_location').value = 15;
-      document.getElementById('w_salary').value = 10;
-      document.getElementById('w_industry').value = 10;
-
-      document.querySelectorAll('.weight-enable-chk').forEach(checkbox => {
-        checkbox.checked = true;
-        const targetId = checkbox.dataset.target;
-        const slider = document.getElementById(targetId);
-        if (slider) slider.disabled = false;
-      });
-
-      normalizeToggle.checked = false;
-      syncDisplays();
-
-      resultsArea.innerHTML = `
-        <div class="placeholder">
-          <i data-feather="briefcase"></i>
-          <p>Your personalized job recommendations will appear here.</p>
-          <small>Upload a resume or complete your profile to begin.</small>
-        </div>
-      `;
-      currentRecommendations = [];
-      currentPreferences = {};
-
-      clearBtn.disabled = false;
-      clearBtn.innerHTML = originalHTML;
-
-      if (formStatus) {
-        formStatus.textContent = '✓ Form cleared successfully';
-        formStatus.style.color = 'var(--accent-3)';
-        setTimeout(() => { formStatus.textContent = ''; }, 3000);
+      if (window.feather) {
+          window.feather.replace();
       }
-
-      const sidebar = document.querySelector('.sidebar');
-      if (sidebar) {
-        sidebar.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      replaceIcons();
-
-      console.log('✓ Form cleared successfully');
-    }, 300);
   };
 
   const init = () => {
@@ -186,103 +119,64 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeUploadBtn.addEventListener('click', () => resumeUploadInput.click());
     resumeUploadInput.addEventListener('change', handleResumeUpload);
 
-    // Add Clear Button Event Listener
-    if (clearBtn) {
-      clearBtn.addEventListener('click', handleClearForm);
-    }
-
     applyAccent(accentSelect.value);
     applySidebarWidth(sidebarWidthSlider.value);
     syncDisplays();
     replaceIcons();
-    initCookieConsent();
-  };
-
-  const initCookieConsent = () => {
-    const popup = document.getElementById('cookie-consent-popup');
-    const acceptBtn = document.getElementById('cookie-accept-btn');
-    const rejectBtn = document.getElementById('cookie-reject-btn');
-
-    if (!popup || !acceptBtn || !rejectBtn) return;
-
-    const consent = localStorage.getItem('cookieConsent');
-
-    if (!consent) {
-      popup.classList.remove('hidden');
-    }
-
-    acceptBtn.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'accepted');
-      popup.classList.add('hidden');
-    });
-
-    rejectBtn.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'rejected');
-      popup.classList.add('hidden');
-    });
   };
 
   init();
-
-  document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      if (clearBtn && !clearBtn.disabled) {
-        clearBtn.click();
-      }
-    }
-  });
-
+  
   async function handleResumeUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
+      const file = event.target.files[0];
+      if (!file) return;
 
-    resumeStatus.innerHTML = '<i data-feather="loader" class="spin"></i> Parsing...';
-    replaceIcons();
-    resumeUploadBtn.disabled = true;
-
-    const formData = new FormData();
-    formData.append('resume', file);
-
-    try {
-      const res = await fetch('/parse_resume', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const responseText = await res.text();
-      if (!res.ok) {
-        let parsedError;
-        try { parsedError = JSON.parse(responseText); }
-        catch (e) { parsedError = null; }
-        const message = parsedError && parsedError.error ? parsedError.error : responseText || `HTTP ${res.status}`;
-        throw new Error(message);
-      }
-
-      const parsedData = JSON.parse(responseText);
-      if (parsedData.error) {
-        throw new Error(parsedData.error);
-      }
-
-      const anySkills = safeArrayFill('skills', parsedData.skills);
-      const anyTitles = safeArrayFill('titles', parsedData.titles);
-      safeArrayFill('locations', parsedData.locations);
-      safeArrayFill('industries', parsedData.industries);
-
-      if (!anySkills && !anyTitles) {
-        throw new Error("Could not extract key skills or titles from the resume.");
-      }
-
-      resumeStatus.textContent = `Successfully parsed: ${file.name}`;
-
-    } catch (err) {
-      console.error(err);
-      resumeStatus.textContent = `Error: ${err.message}`;
-    } finally {
-      resumeUploadBtn.disabled = false;
-      resumeUploadInput.value = '';
+      resumeStatus.innerHTML = '<i data-feather="loader" class="spin"></i> Parsing...';
       replaceIcons();
-    }
+      resumeUploadBtn.disabled = true;
+
+      const formData = new FormData();
+      formData.append('resume', file);
+
+      try {
+          const res = await fetch('/parse_resume', {
+              method: 'POST',
+              body: formData,
+          });
+
+          const responseText = await res.text();
+          if (!res.ok) {
+              let parsedError;
+              try { parsedError = JSON.parse(responseText); }
+              catch(e) { parsedError = null; }
+              const message = parsedError && parsedError.error ? parsedError.error : responseText || `HTTP ${res.status}`;
+              throw new Error(message);
+          }
+
+          const parsedData = JSON.parse(responseText);
+          if (parsedData.error) {
+              throw new Error(parsedData.error);
+          }
+
+          const anySkills = safeArrayFill('skills', parsedData.skills);
+          const anyTitles = safeArrayFill('titles', parsedData.titles);
+          safeArrayFill('locations', parsedData.locations);
+          safeArrayFill('industries', parsedData.industries);
+
+          if (!anySkills && !anyTitles) {
+              throw new Error("Could not extract key skills or titles from the resume.");
+          }
+
+          resumeStatus.textContent = `Successfully parsed: ${file.name}`;
+          
+      } catch (err) {
+          console.error(err);
+          resumeStatus.textContent = `Error: ${err.message}`;
+      } finally {
+          resumeUploadBtn.disabled = false;
+          resumeUploadInput.value = '';
+          replaceIcons();
+      }
   };
 
   form.addEventListener('submit', async (ev) => {
@@ -291,11 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const oldHtml = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i data-feather="loader" class="spin"></i> Analyzing...';
     replaceIcons();
-
+    
     resultsArea.innerHTML = '';
 
     const getArrayFromInput = (id) => (document.getElementById(id)?.value || '').split(',').map(s => s.trim()).filter(Boolean);
-
+    
     currentPreferences = {
       skills: getArrayFromInput('skills'),
       titles: getArrayFromInput('titles'),
@@ -312,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch('/recommend', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ preferences: currentPreferences, weights })
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({preferences: currentPreferences, weights})
       });
 
       const text = await res.text();
@@ -321,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) {
         let parsed;
         try { parsed = JSON.parse(text); }
-        catch (e) { parsed = null; }
+        catch(e) { parsed = null; }
         const message = parsed && parsed.error ? parsed.error : text || `HTTP ${res.status}`;
         throw new Error(message);
       }
@@ -345,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderBreakdown = (b) => {
     if (!b || typeof b !== 'object') return '<li><em>No breakdown available</em></li>';
-    return Object.entries(b).map(([k, v]) => `<li><strong>${escapeHtml(k)}:</strong> ${escapeHtml(v)}%</li>`).join('');
+    return Object.entries(b).map(([k,v]) => `<li><strong>${escapeHtml(k)}:</strong> ${escapeHtml(v)}%</li>`).join('');
   };
 
   const renderJobs = (jobs) => {
@@ -380,62 +274,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function addValidationListeners() {
     document.querySelectorAll('.validate-btn').forEach(button => {
-      button.addEventListener('click', e => {
-        const card = e.currentTarget.closest('.job-card');
-        const jobId = card.dataset.jobId;
-        const validationView = card.querySelector('.validation-view');
-        const jobData = currentRecommendations.find(j => j.job_id === jobId);
+        button.addEventListener('click', e => {
+            const card = e.currentTarget.closest('.job-card');
+            const jobId = card.dataset.jobId;
+            const validationView = card.querySelector('.validation-view');
+            const jobData = currentRecommendations.find(j => j.job_id === jobId);
 
-        if (validationView.style.display === 'none') {
-          validationView.innerHTML = createValidationTable(jobData);
-          validationView.style.display = 'block';
-          e.currentTarget.innerHTML = '<i data-feather="x-square"></i> Hide Validation';
-        } else {
-          validationView.style.display = 'none';
-          validationView.innerHTML = '';
-          e.currentTarget.innerHTML = '<i data-feather="check-square"></i> Validate';
-        }
-        replaceIcons();
-      });
+            if (validationView.style.display === 'none') {
+                validationView.innerHTML = createValidationTable(jobData);
+                validationView.style.display = 'block';
+                e.currentTarget.innerHTML = '<i data-feather="x-square"></i> Hide Validation';
+            } else {
+                validationView.style.display = 'none';
+                validationView.innerHTML = '';
+                e.currentTarget.innerHTML = '<i data-feather="check-square"></i> Validate';
+            }
+            replaceIcons();
+        });
     });
   }
 
   function createValidationTable(jobData) {
-    const { validation_details } = jobData;
-    const prefMap = {
-      'Skills': currentPreferences.skills,
-      'Title': currentPreferences.titles,
-      'Location': currentPreferences.locations,
-      'Industry': currentPreferences.industries,
-      'Salary': currentPreferences.min_salary > 0 ? `Min: ₹${currentPreferences.min_salary.toLocaleString('en-IN')}` : ''
-    };
+      const { validation_details } = jobData;
+      const prefMap = {
+          'Skills': currentPreferences.skills,
+          'Title': currentPreferences.titles,
+          'Location': currentPreferences.locations,
+          'Industry': currentPreferences.industries,
+          'Salary': currentPreferences.min_salary > 0 ? `Min: ₹${currentPreferences.min_salary.toLocaleString('en-IN')}` : ''
+      };
 
-    let tableHTML = '<h5>Preference vs. Job Data</h5><table class="validation-table">';
-    tableHTML += '<tr><th>Attribute</th><th>Your Preference</th><th>Job Requirement</th></tr>';
-
-    for (const key in prefMap) {
-      const userPref = Array.isArray(prefMap[key]) ? prefMap[key].join(', ') : prefMap[key];
-
-      let jobReqHTML = '';
-      if (Array.isArray(validation_details[key])) {
-        jobReqHTML = validation_details[key].map(item => {
-          if (item.type === 'direct') {
-            return `<span class="match-highlight direct">${escapeHtml(item.skill)}</span>`;
-          } else if (item.type === 'semantic') {
-            return `<span class="match-highlight semantic">${escapeHtml(item.skill)}</span>`;
+      let tableHTML = '<h5>Preference vs. Job Data</h5><table class="validation-table">';
+      tableHTML += '<tr><th>Attribute</th><th>Your Preference</th><th>Job Requirement</th></tr>';
+      
+      for (const key in prefMap) {
+          const userPref = Array.isArray(prefMap[key]) ? prefMap[key].join(', ') : prefMap[key];
+          
+          let jobReqHTML = '';
+          if (Array.isArray(validation_details[key])) {
+              jobReqHTML = validation_details[key].map(item => {
+                  if (item.type === 'direct') {
+                      return `<span class="match-highlight direct">${escapeHtml(item.skill)}</span>`;
+                  } else if (item.type === 'semantic') {
+                      return `<span class="match-highlight semantic">${escapeHtml(item.skill)}</span>`;
+                  }
+                  return escapeHtml(item.skill);
+              }).join(', ');
+          } else {
+              jobReqHTML = escapeHtml(validation_details[key]) || '<i>Not specified</i>';
           }
-          return escapeHtml(item.skill);
-        }).join(', ');
-      } else {
-        jobReqHTML = escapeHtml(validation_details[key]) || '<i>Not specified</i>';
+
+          tableHTML += `<tr><td><strong>${key}</strong></td><td>${userPref || '<i>Not specified</i>'}</td><td>${jobReqHTML}</td></tr>`;
       }
 
-      tableHTML += `<tr><td><strong>${key}</strong></td><td>${userPref || '<i>Not specified</i>'}</td><td>${jobReqHTML}</td></tr>`;
-    }
-
-    tableHTML += '</table>';
-    return tableHTML;
+      tableHTML += '</table>';
+      return tableHTML;
   }
 });
 
+(function initTheme() {
+  const THEMES = {
+    light: { name: 'Light', icon: 'sun' },
+    dark: { name: 'Dark', icon: 'moon' },
+    blue: { name: 'Ocean Blue', icon: 'droplet' }
+  };
 
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeMenu = document.getElementById('theme-menu');
+  const themeName = document.getElementById('theme-name');
+  const themeIcon = document.getElementById('theme-icon');
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('credx-theme') || 'light';
+  applyTheme(savedTheme, false);
+
+  // Toggle menu
+  themeToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    themeMenu?.classList.toggle('active');
+  });
+
+  // Close menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.theme-toggle-btn') && !e.target.closest('.theme-menu')) {
+      themeMenu?.classList.remove('active');
+    }
+  });
+
+  // Handle theme selection
+  document.querySelectorAll('.theme-option').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const theme = btn.dataset.theme;
+      applyTheme(theme, true);
+      themeMenu?.classList.remove('active');
+    });
+  });
+
+  function applyTheme(theme, save = true) {
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    if (themeName) themeName.textContent = THEMES[theme].name;
+    if (themeIcon) themeIcon.setAttribute('data-feather', THEMES[theme].icon);
+    
+    // Update active state
+    document.querySelectorAll('.theme-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+    
+    if (save) localStorage.setItem('credx-theme', theme);
+    
+    // Re-render feather icons
+    if (window.feather) window.feather.replace();
+  }
+})();
