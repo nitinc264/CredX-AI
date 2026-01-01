@@ -19,6 +19,7 @@ Classifier: Programming Language :: Python :: 3.11
 Classifier: Programming Language :: Python :: 3.12
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
+License-File: LICENSE
 Requires-Dist: Flask>=2.3.0
 Requires-Dist: Flask-Cors>=4.0.0
 Requires-Dist: gunicorn
@@ -35,6 +36,28 @@ Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
 Requires-Dist: black>=23.0.0; extra == "dev"
 Requires-Dist: flake8>=6.0.0; extra == "dev"
 Requires-Dist: mypy>=1.0.0; extra == "dev"
+Dynamic: license-file
+
+# **📑 Table of Contents**
+
+1. [CredX AI - Your Personal Career Trajectory Engine](#credx-ai---your-personal-career-trajectory-engine)
+2. [🚀 The Big Idea](#-the-big-idea)
+3. [🛠️ How We Built It (Hackathon Story)](#️-how-we-built-it-hackathon-story)
+   * [Tech Stack Overview](#tech-stack-overview)
+4. [⚙️ Run It Yourself](#️-run-it-yourself)
+   * [Requirements](#requirements)
+   * [Project Structure](#project-structure)
+   * [Installation](#installation)
+5. [📖 How to Use](#-how-to-use)
+6. [🏆 Why CredX AI?](#-why-credx-ai)
+7. [💡 Future Improvements](#-future-improvements)
+8. [🖥️ Output](#output)
+9. [🚀 Live Demo](#-live-demo)
+10. [🎥 Demo Link](#demo-link)
+11. [🤝 Contributing](#-contributing)
+12. [📜 License](#-license)
+
+
 
 # CredX AI - Your Personal Career Trajectory Engine
 
@@ -191,6 +214,19 @@ credx-ai/
 
 ## Demo Link 	
 [View Demo](https://drive.google.com/file/d/1PwaxuSsKrxdTDLMEYcITFjXXBiCwXuCN/view?usp=sharing)
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
+
+## 🙏 Mentors
+### Our Guiding Stars 🌟
+
+- **Mehvish @Mehvish1234**  
+  *Collaborator | Project Mentor*  
+  🔗 https://github.com/Mehvish1234
+
+- **Parag Ekbote @ParagEkbote**  
+  *Collaborator | Project Mentor*  
+  🔗 https://github.com/ParagEkbote
 
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
 

@@ -1,3 +1,4 @@
+LICENSE
 README.md
 pyproject.toml
 src/credx_ai/__init__.py
@@ -13,3 +14,4 @@ src/credx_ai.egg-info/SOURCES.txt
 src/credx_ai.egg-info/dependency_links.txt
 src/credx_ai.egg-info/requires.txt
 src/credx_ai.egg-info/top_level.txt
+tests/test_matching_engine.py
